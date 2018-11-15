@@ -1,0 +1,25 @@
+public:
+    int orderOfLargestPlusSign(int N, vector<vector<int>>& mines) {
+        int res = 0;
+        queue<vector<int>> nodes; 
+        if(N % 2 == 0) {
+            int pos = (N-1) / 2;
+            vector<int> n1 = {pos, pos}; nodes.push(n1);
+            vector<int> n2 = {pos, pos+1}; nodes.push(n2);
+            vector<int> n3 = {pos+1, pos}; nodes.push(n3);
+            vector<int> n4 = {pos+1, pos+1}; nodes.push(n4);
+        }
+        else {
+            int pos = N / 2;
+            vector<int> n1 = {pos, pos};
+            nodes.push(n1);
+        }
+        while(!nodes.empty()) {
+            vector<int> cur = nodes.pop();
+            int x = cur[0];
+            int y = cur[1];
+            int order = hasPlus(x, y);
+            if(order > 0) {res = order; return res;}
+            nodes.push({x-1, y-1})
+        }
+    }
